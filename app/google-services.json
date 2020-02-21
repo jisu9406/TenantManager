@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252241726521",
+    "firebase_url": "https://tenantmanager-150f9.firebaseio.com",
+    "project_id": "tenantmanager-150f9",
+    "storage_bucket": "tenantmanager-150f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252241726521:android:793572498eacebdf5d91e8",
+        "android_client_info": {
+          "package_name": "com.jisu.tenantmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252241726521-d0ffpg67ij4rvog3f6ah1ktdrk98nm6t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jisu.tenantmanager",
+            "certificate_hash": "9904d9958ca517051980eebd80b6c1b7e7e88418"
+          }
+        },
+        {
+          "client_id": "252241726521-34nbbui6s9rl9p5j42psk0hciiu20orf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF3ufmeDsC8rbpcE6ks3foJoite-UIfeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252241726521-34nbbui6s9rl9p5j42psk0hciiu20orf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

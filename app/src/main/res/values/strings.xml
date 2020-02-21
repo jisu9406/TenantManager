@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TenantManager</string>
+    <string name="app_name_kor">입주자 관리 앱</string>
+    <string name="toolbar_title">세입자 관리</string>
+    <string name="nouser_message">등록된 고객이 없습니다.</string>
+    <string name="adduser_dialog_title">세입자 추가</string>
+    <string name="adduser_dialog_message">새로운 세입자를 추가하시겠습니까?</string>
+    <string name="dialog_possitive_btn">확인</string>
+    <string name="dialog_negative_btn">취소</string>
+    <string name="sortuser_dialog_title">세입자 분류</string>
+</resources>

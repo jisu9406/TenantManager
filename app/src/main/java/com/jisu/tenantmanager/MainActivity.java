@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
 
-    Toolbar mToolbar;
-    Intent mIntent;
+    private Toolbar mToolbar;
+    private Intent mIntent;
     private AlertDialog.Builder mDialog;
 
     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 addUserDialog();
                 return true ;
             default :
-                return super.onOptionsItemSelected(item) ;
+                return super.onOptionsItemSelected(item);
         }
     }
 

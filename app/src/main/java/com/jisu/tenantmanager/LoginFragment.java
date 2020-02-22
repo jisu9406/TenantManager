@@ -28,14 +28,14 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private final String TAG = "LoginFragment";
-    EditText mIdEditText;
-    EditText mPwEditText;
-    Button mLoginButton;
+    private EditText mIdEditText;
+    private EditText mPwEditText;
+    private Button mLoginButton;
 
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
 
-    String[] account = new String[2];
+    private String[] account = new String[2];
 
     public LoginFragment() {
         // Required empty public constructor
@@ -88,11 +88,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         String dbPassword = account[1];
 
         if(TextUtils.isEmpty(id)){
-            Toast.makeText(this.getContext(), "email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), "ID을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
         if(TextUtils.isEmpty(password)){
-            Toast.makeText(this.getContext(), "password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.getContext(), "PASSWORD를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 

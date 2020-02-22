@@ -5,6 +5,8 @@
     <string name="nouser_message">등록된 입주자가 없습니다.</string>
     <string name="adduser_dialog_title">입주자 추가</string>
     <string name="adduser_dialog_message">새로운 입주자를 추가하시겠습니까?</string>
+    <string name="cancel_dialog_title">작업을 중지하시겠습니까?</string>
+    <string name="cancel_dialog_message">입력한 데이터는 저장되지 않습니다.</string>
     <string name="adduser_name">Name</string>
     <string name="adduser_phonenumber">Phone Number</string>
     <string name="adduser_address">Address</string>

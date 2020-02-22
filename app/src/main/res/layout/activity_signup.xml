@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupActivity">
+    tools:context=".SignupActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/signup_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/Black"
+        android:layout_gravity="top">
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/name_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="@string/adduser_name"/>
+    <EditText
+        android:id="@+id/phonenumber_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="@string/adduser_phonenumber"/>
+    <EditText
+        android:id="@+id/address_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="@string/adduser_address"/>
+    <EditText
+        android:id="@+id/company_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="Company"/>
+    <EditText
+        android:id="@+id/agent_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="Agent" />
+    <EditText
+        android:id="@+id/mention_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:hint="Mention"/>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:text="Submit"
+        android:textColor="@color/White"
+        android:background="@color/Black"/>
+
+</LinearLayout>

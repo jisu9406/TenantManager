@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mToolbar = findViewById(R.id.main_toolbar);
         toolbarStyle();
     }
 
@@ -53,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toolbarStyle() {
-        mToolbar = findViewById(R.id.tool_bar);
-        mToolbar.setTitle(R.string.toolbar_title);
+        mToolbar.setTitle(R.string.app_name);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.White));
         setSupportActionBar(mToolbar);
     }

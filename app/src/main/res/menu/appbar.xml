@@ -6,7 +6,7 @@
         android:id="@+id/action_search"
         android:icon="@drawable/sortuser_icon"
         android:title="Search"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_adduser"

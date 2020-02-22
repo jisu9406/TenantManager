@@ -22,7 +22,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:hint="@string/adduser_name"/>
     <EditText
         android:id="@+id/phonenumber_edittext"
@@ -31,7 +31,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:hint="@string/adduser_phonenumber"/>
     <EditText
         android:id="@+id/address_edittext"
@@ -40,7 +40,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:hint="@string/adduser_address"/>
     <EditText
         android:id="@+id/company_edittext"
@@ -49,7 +49,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:hint="Company"/>
     <EditText
         android:id="@+id/agent_edittext"
@@ -58,7 +58,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:imeOptions="actionDone"
+        android:imeOptions="actionNext"
         android:hint="Agent" />
     <EditText
         android:id="@+id/mention_edittext"

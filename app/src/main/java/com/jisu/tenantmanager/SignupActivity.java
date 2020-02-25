@@ -6,27 +6,38 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = "SignupActivity";
     private Toolbar mToolbar;
     private Button mSubmitButton;
+    private EditText mNameEditText;
+    private EditText mPhoneEditText;
+    private EditText mAddressEditText;
+    private EditText mAgeEditText;
 
     private AlertDialog.Builder mDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mSubmitButton = findViewById(R.id.submit_button);
         mToolbar= findViewById(R.id.signup_toolbar);
+        mNameEditText = findViewById(R.id.name_edittext);
+        mPhoneEditText = findViewById(R.id.phonenumber_edittext);
+        mAddressEditText = findViewById(R.id.address_edittext);
+        mAgeEditText = findViewById(R.id.age_edittext);
+        mSubmitButton = findViewById(R.id.submit_button);
 
         mSubmitButton.setOnClickListener(this);
         toolbarStyle();
@@ -40,7 +51,10 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-
+        String name = mNameEditText.getText().toString();
+        String phonenumber = mPhoneEditText.getText().toString();
+        String address = mAddressEditText.getText().toString();
+        int age = Integer.parseInt(mAgeEditText.getText().toString());
     }
 
     @Override

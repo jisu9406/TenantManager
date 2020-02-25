@@ -43,33 +43,14 @@
         android:imeOptions="actionNext"
         android:hint="@string/adduser_address"/>
     <EditText
-        android:id="@+id/company_edittext"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
-        android:imeOptions="actionNext"
-        android:hint="Company"/>
-    <EditText
-        android:id="@+id/agent_edittext"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
-        android:imeOptions="actionNext"
-        android:hint="Agent" />
-    <EditText
-        android:id="@+id/mention_edittext"
+        android:id="@+id/age_edittext"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
         android:imeOptions="actionDone"
-        android:hint="Mention"/>
-
+        android:hint="Age"/>
     <Button
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"

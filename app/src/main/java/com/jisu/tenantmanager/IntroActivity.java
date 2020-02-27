@@ -28,7 +28,7 @@ public class IntroActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message message){
             if(message.what==1) {
-                mLoadingTextView.setVisibility(View.GONE);
+                mLoadingTextView.setVisibility(View.INVISIBLE);
                 FragmentManager mFragmentMananger = getSupportFragmentManager();
                 FragmentTransaction mFragmentTransaction = mFragmentMananger.beginTransaction();
                 mFragmentTransaction.add(R.id.login_fragment_container, new LoginFragment());

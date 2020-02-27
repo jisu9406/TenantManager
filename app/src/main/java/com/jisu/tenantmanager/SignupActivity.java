@@ -62,23 +62,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         //Firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("Users");
-        Log.i(TAG, " " + mUniqueNumber);
-
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(int i=1; i<=dataSnapshot.getChildrenCount(); i++) {
-                    mUnumberList.add(i);
-                }
-                mUniqueNumber += mUnumberList.size();
-                Log.i(TAG, "uniqueNumber : " + mUniqueNumber);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        getUniqueNumber();
     }
 
     @Override
@@ -170,5 +154,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
         mDialog.show();
+    }
+
+    private void getUniqueNumber() {
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(int i=1; i<=dataSnapshot.getChildrenCount(); i++) {
+                    mUnumberList.add(i);
+                }
+                mUniqueNumber += mUnumberList.size();
+                Log.i(TAG, "uniqueNumber : " + mUniqueNumber);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

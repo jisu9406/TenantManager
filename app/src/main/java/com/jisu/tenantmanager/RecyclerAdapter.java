@@ -1,5 +1,6 @@
 package com.jisu.tenantmanager;
 
+import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,9 +31,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+        Resources resources = holder.itemView.getContext().getResources();
         holder.numberTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         holder.nameTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-
+        holder.numberTextView.setTextColor(resources.getColor(R.color.Black));
+        holder.nameTextView.setTextColor(resources.getColor(R.color.Black));
         holder.numberTextView.setGravity(Gravity.CENTER);
         holder.nameTextView.setGravity(Gravity.CENTER);
 

@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
 
-    private String[] account = new String[2];
+    private String[] mAccount = new String[2];
 
     public LoginFragment() {
         // Required empty public constructor
@@ -59,10 +59,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Log.i(TAG, "Data : " + snapshot.getValue());
 
-                    account[0] = (String) snapshot.child("Id").getValue();
-                    account[1] = (String) snapshot.child("Password").getValue();
+                    mAccount[0] = (String) snapshot.child("Id").getValue();
+                    mAccount[1] = (String) snapshot.child("Password").getValue();
                 }
-                Log.i(TAG, "id : " + account[0] + " password : " + account[1]);
+                Log.i(TAG, "id : " + mAccount[0] + " password : " + mAccount[1]);
             }
 
             @Override
@@ -84,8 +84,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private void login() {
         String id = mIdEditText.getText().toString();
         String password = mPwEditText.getText().toString();
-        String dbId = account[0];
-        String dbPassword = account[1];
+        String dbId = mAccount[0];
+        String dbPassword = mAccount[1];
 
         if(TextUtils.isEmpty(id)){
             Toast.makeText(this.getContext(), "ID을 입력해 주세요.", Toast.LENGTH_SHORT).show();

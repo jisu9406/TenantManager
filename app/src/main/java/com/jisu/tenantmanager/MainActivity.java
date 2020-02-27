@@ -4,16 +4,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder mDialog;
     private TextView mNoUserTextView;
 
-    //RecyclerView
     private ArrayList<Dictionary> mArrayList;
     private RecyclerView mRecyclerView;
     private RecyclerAdapter mRecyclerAdapter;
@@ -47,16 +52,15 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
 
-    private int mUniqueNumber =1;
     private ArrayList<Integer> mUnumberList = new ArrayList<>();
     private ArrayList<String> mNameList = new ArrayList<>();
     private ArrayList<String> mAgeList = new ArrayList<>();
     private ArrayList<String> mPhoneList = new ArrayList<>();
     private ArrayList<String> mAddressList = new ArrayList<>();
 
-    //뒤로가기 버튼 눌렸을 때
-   private long pressedTime = 0;
-
+    private int mUniqueNumber =1;
+    private long mFirstPressedTime = 0;
+    private boolean mIsFragment = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("Users");
         initRecyclerView();
+
+        setItemTouchListener();
     }
 
     @Override
@@ -95,12 +101,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //뒤로가기 키 눌렀을 때
+    @Override
+    public void onBackPressed() {
+        if(mIsFragment) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.userinfo_fragment_container);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(fragment).commit();
+            fragmentManager.popBackStack();
+            mIsFragment = false;
+        } else {
+
+            if (mFirstPressedTime == 0) {
+                Toast.makeText(MainActivity.this, R.string.finish_toast_message , Toast.LENGTH_SHORT).show();
+                mFirstPressedTime = System.currentTimeMillis();
+            }
+            else {
+                int secondPressedTime = (int) (System.currentTimeMillis() - mFirstPressedTime);
+
+                if (secondPressedTime > 2000) {
+                    Toast.makeText(MainActivity.this, R.string.finish_toast_message , Toast.LENGTH_SHORT).show();
+                    mFirstPressedTime = 0;
+                }
+                else {
+                    finishAffinity();
+                }
+            }
+        }
+    }
+
     private void toolbarStyle() {
         mToolbar.setTitle(R.string.app_name);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.White));
         setSupportActionBar(mToolbar);
     }
 
+    //추가 다이얼로그
     private void addUserDialog() {
         mDialog = new AlertDialog.Builder(this);
         mDialog.setTitle(R.string.adduser_dialog_title);
@@ -125,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         mDialog.show();
     }
 
+    //분류 다이얼로그
     private void sortUserDialog() {
         //아이템 목록
         final List<String> mListItems = new ArrayList<>();
@@ -168,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         mDialog.show();
     }
 
+    //RecyclerView
     private void initRecyclerView() {
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -187,8 +225,8 @@ public class MainActivity extends AppCompatActivity {
                     mArrayList.add(dictionary);
                     Log.i(TAG, "mArrayList : " + mArrayList.get(i-1).getUsernumber() + " , " + mArrayList.get(i-1).getName());
                 }
-                if(mArrayList.isEmpty()) {
-                    mNoUserTextView.setVisibility(View.INVISIBLE);
+                if(!mArrayList.isEmpty()) {
+                    mNoUserTextView.setVisibility(View.GONE);
                 }
                 mLinearLayoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
                 mRecyclerAdapter = new RecyclerAdapter(mArrayList);
@@ -206,24 +244,71 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //뒤로가기 키 눌렀을 때
-    @Override
-    public void onBackPressed() {
-        if (pressedTime == 0) {
-            Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_SHORT).show();
-            pressedTime = System.currentTimeMillis();
-        }
-        else {
-            int seconds = (int) (System.currentTimeMillis() - pressedTime);
 
-            if (seconds > 2000) {
-                Toast.makeText(MainActivity.this, " 한 번 더 누르면 종료됩니다." , Toast.LENGTH_SHORT).show();
-                pressedTime = 0;
+    //아이템 터치했을 때
+    private void setItemTouchListener() {
+        mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), mRecyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Dictionary dictionary = mArrayList.get(position);
+
+                Log.i(TAG,"Dictionary : " + dictionary.getName() + ", " + dictionary.getAge() + ", " + dictionary.getPhonenumber() + ", " + dictionary.getAddress());
+
+                FragmentManager mFragmentMananger = getSupportFragmentManager();
+                FragmentTransaction mFragmentTransaction = mFragmentMananger.beginTransaction();
+                mFragmentTransaction.add(R.id.userinfo_fragment_container, new UserInfoFragment(dictionary.getName(), dictionary.getAge(), dictionary.getPhonenumber(), dictionary.getAddress()));
+                mFragmentTransaction.commit();
+                mIsFragment = true;
             }
-            else {
-                finishAffinity();
+
+            @Override
+            public void onLongClick(View view, int position) {
+
             }
-        }
+        }));
     }
 
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector mGestureDetector;
+        private MainActivity.ClickListener mClickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final MainActivity.ClickListener clickListener) {
+            this.mClickListener = clickListener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+            View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+            if (child != null && mClickListener != null && mGestureDetector.onTouchEvent(motionEvent)) {
+                mClickListener.onClick(child, recyclerView.getChildAdapterPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        }
+    }
 }

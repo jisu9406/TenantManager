@@ -13,4 +13,5 @@
     <string name="dialog_possitive_btn">확인</string>
     <string name="dialog_negative_btn">취소</string>
     <string name="sortuser_dialog_title">입주자 분류</string>
+    <string name="finish_toast_message">"한 번 더 누르면 종료됩니다."</string>
 </resources>

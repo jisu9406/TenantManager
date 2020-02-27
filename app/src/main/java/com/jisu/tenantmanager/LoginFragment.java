@@ -45,11 +45,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View mView = inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        mIdEditText = mView.findViewById(R.id.id_edittext);
-        mPwEditText = mView.findViewById(R.id.pwd_edittext);
-        mLoginButton = mView.findViewById(R.id.login_button);
+        mIdEditText = view.findViewById(R.id.id_edittext);
+        mPwEditText = view.findViewById(R.id.pwd_edittext);
+        mLoginButton = view.findViewById(R.id.login_button);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("Admin");
@@ -62,7 +62,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     account[0] = (String) snapshot.child("Id").getValue();
                     account[1] = (String) snapshot.child("Password").getValue();
                 }
-
                 Log.i(TAG, "id : " + account[0] + " password : " + account[1]);
             }
 
@@ -72,7 +71,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }
         });
         mLoginButton.setOnClickListener(this);
-        return mView;
+        return view;
     }
 
     @Override
@@ -105,6 +104,5 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         } else {
             Toast.makeText(this.getContext(), "틀렸습니다.", Toast.LENGTH_SHORT).show();
         }
-
     }
 }

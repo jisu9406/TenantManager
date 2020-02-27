@@ -52,16 +52,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mLoginButton = mView.findViewById(R.id.login_button);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("Admin");
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     Log.i(TAG, "Data : " + snapshot.getValue());
 
-                    AccountData mAccountData = snapshot.child("Admin_account").getValue(AccountData.class);
-                    account[0] = mAccountData.id;
-                    account[1] = mAccountData.password;
+                    account[0] = (String) snapshot.child("Id").getValue();
+                    account[1] = (String) snapshot.child("Password").getValue();
                 }
 
                 Log.i(TAG, "id : " + account[0] + " password : " + account[1]);

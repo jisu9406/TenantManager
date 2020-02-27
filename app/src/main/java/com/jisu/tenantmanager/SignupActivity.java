@@ -1,5 +1,7 @@
 package com.jisu.tenantmanager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
     private final String TAG = "SignupActivity";
@@ -26,6 +34,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private EditText mAgeEditText;
 
     private AlertDialog.Builder mDialog;
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mDatabaseReference;
+    private ChildEventListener mChildEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +45,17 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
 
         mToolbar= findViewById(R.id.signup_toolbar);
         mNameEditText = findViewById(R.id.name_edittext);
+        mAgeEditText = findViewById(R.id.age_edittext);
         mPhoneEditText = findViewById(R.id.phonenumber_edittext);
         mAddressEditText = findViewById(R.id.address_edittext);
-        mAgeEditText = findViewById(R.id.age_edittext);
         mSubmitButton = findViewById(R.id.submit_button);
 
         mSubmitButton.setOnClickListener(this);
         toolbarStyle();
+
+        //firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mDatabaseReference = mFirebaseDatabase.getReference().child("Users");
     }
 
     @Override
@@ -52,9 +67,46 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         String name = mNameEditText.getText().toString();
+        int age = Integer.parseInt(mAgeEditText.getText().toString());
         String phonenumber = mPhoneEditText.getText().toString();
         String address = mAddressEditText.getText().toString();
-        int age = Integer.parseInt(mAgeEditText.getText().toString());
+
+        mDatabaseReference.child(name).child("Name").setValue(name);
+        mDatabaseReference.child(name).child("Age").setValue(age);
+        mDatabaseReference.child(name).child("PhoneNumber").setValue(phonenumber);
+        mDatabaseReference.child(name).child("Address").setValue(address);
+        
+        mChildEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.i(TAG, "onChildAdded(...)");
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.i(TAG, "onChildChanged(...)");
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Log.i(TAG, "onChildRemoved(...)");
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.i(TAG, "onChildMoved(...)");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i(TAG, "onCancelled(...)");
+            }
+        };
+        mDatabaseReference.addChildEventListener(mChildEventListener);
+
+        Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        Log.i(TAG, "submit button clicked!");
     }
 
     @Override

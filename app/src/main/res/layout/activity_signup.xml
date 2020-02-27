@@ -25,6 +25,15 @@
         android:imeOptions="actionNext"
         android:hint="@string/adduser_name"/>
     <EditText
+        android:id="@+id/age_edittext"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:imeOptions="actionNext"
+        android:hint="Age"/>
+    <EditText
         android:id="@+id/phonenumber_edittext"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -40,17 +49,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:imeOptions="actionNext"
-        android:hint="@string/adduser_address"/>
-    <EditText
-        android:id="@+id/age_edittext"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
         android:imeOptions="actionDone"
-        android:hint="Age"/>
+        android:hint="@string/adduser_address"/>
     <Button
         android:id="@+id/submit_button"
         android:layout_width="wrap_content"
@@ -60,5 +60,4 @@
         android:text="Submit"
         android:textColor="@color/White"
         android:background="@color/Black"/>
-
 </LinearLayout>

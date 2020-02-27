@@ -22,6 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,6 +40,9 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mChildEventListener;
+
+    private int uniqueNumber =1;
+    private ArrayList<Integer> mUnumberList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,23 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         //firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference().child("Users");
+        Log.i(TAG, " " + uniqueNumber);
+
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(int i=1; i<=dataSnapshot.getChildrenCount(); i++) {
+                    mUnumberList.add(i);
+                }
+                uniqueNumber += mUnumberList.size();
+                Log.i(TAG, "uniqueNumber : " + uniqueNumber);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -71,10 +94,11 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         String phonenumber = mPhoneEditText.getText().toString();
         String address = mAddressEditText.getText().toString();
 
-        mDatabaseReference.child(name).child("Name").setValue(name);
-        mDatabaseReference.child(name).child("Age").setValue(age);
-        mDatabaseReference.child(name).child("PhoneNumber").setValue(phonenumber);
-        mDatabaseReference.child(name).child("Address").setValue(address);
+
+        mDatabaseReference.child(String.valueOf(uniqueNumber)).child("Name").setValue(name);
+        mDatabaseReference.child(String.valueOf(uniqueNumber)).child("Age").setValue(age);
+        mDatabaseReference.child(String.valueOf(uniqueNumber)).child("PhoneNumber").setValue(phonenumber);
+        mDatabaseReference.child(String.valueOf(uniqueNumber)).child("Address").setValue(address);
         
         mChildEventListener = new ChildEventListener() {
             @Override
